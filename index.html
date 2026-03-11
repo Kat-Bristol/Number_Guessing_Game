@@ -60,6 +60,7 @@ function startGame() {
     correctNumber = Math.floor(Math.random() * (UPPER_BOUND + 1));
     guessCounter = 0;
     document.getElementById("result").innerText = "";
+    document.getElementById("guess").value = "";
 }
 
 function checkGuess() {
@@ -73,6 +74,7 @@ function checkGuess() {
     if (guess === correctNumber) {
         document.getElementById("result").innerText =
         "Wow, you got it in " + guessCounter + " guesses!";
+        
     }
 
     else if (remaining === 0) {
@@ -100,3 +102,4 @@ function restartGame() {
 
 </body>
 </html>
+
