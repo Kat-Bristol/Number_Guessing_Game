@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css">
+<script defer src="https://pyscript.net/latest/pyscript.js"></script>
+</head>
+
+<body>
+
+<h1>Number Guessing Game</h1>
+<p>Guess a number between 0 and 100. You have 5 tries.</p>
+
+<input id="guess" type="number">
+<button py-click="check_guess()">Submit Guess</button>
+
+<p id="result"></p>
+
+<py-script>
+import random
+from pyscript import Element
+
+LOWER_BOUND = 0
+UPPER_BOUND = 100
+GUESS_LIMIT = 5
+guess_counter = 0
+correct_number = random.randint(LOWER_BOUND, UPPER_BOUND)
+
+def check_guess():
+    global guess_counter
+
+    guess = int(Element("guess").value)
+    guess_counter += 1
+    remaining = GUESS_LIMIT - guess_counter
+
+    if guess == correct_number:
+        Element("result").write(f"You got it in {guess_counter} guesses!")
+    elif remaining == 0:
+        Element("result").write(f"Game over! The number was {correct_number}")
+    elif guess < correct_number:
+        Element("result").write(f"Too low! {remaining} guesses remaining.")
+    else:
+        Element("result").write(f"Too high! {remaining} guesses remaining.")
+</py-script>
+
+</body>
+</html>
