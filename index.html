@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Number Guessing Game</title>
-
-  <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css">
-  <script defer src="https://pyscript.net/latest/pyscript.js"></script>
-
+<title>Number Guessing Game</title>
 </head>
 
 <body>
@@ -14,37 +10,49 @@
 <p>Guess a number between 0 and 100. You have 5 guesses.</p>
 
 <input id="guess" type="number">
-<button py-click="check_guess()">Submit Guess</button>
+<button onclick="checkGuess()">Submit Guess</button>
 
 <p id="result"></p>
 
-<py-script>
-import random
-from pyscript import Element
+<script>
 
-LOWER_BOUND = 0
-UPPER_BOUND = 100
-GUESS_LIMIT = 5
+let LOWER_BOUND = 0;
+let UPPER_BOUND = 100;
+let GUESS_LIMIT = 5;
 
-correct_number = random.randint(LOWER_BOUND, UPPER_BOUND)
-guess_counter = 0
+let correctNumber = Math.floor(Math.random() * (UPPER_BOUND + 1));
+let guessCounter = 0;
 
-def check_guess():
-    global guess_counter
+function checkGuess() {
 
-    guess = int(Element("guess").value)
-    guess_counter += 1
-    remaining = GUESS_LIMIT - guess_counter
+    let guess = Number(document.getElementById("guess").value);
+    guessCounter++;
 
-    if guess == correct_number:
-        Element("result").write(f"You got it in {guess_counter} guesses!")
-    elif remaining == 0:
-        Element("result").write(f"Game over! The number was {correct_number}")
-    elif guess < correct_number:
-        Element("result").write(f"Too low! {remaining} guesses remaining.")
-    else:
-        Element("result").write(f"Too high! {remaining} guesses remaining.")
-</py-script>
+    let remaining = GUESS_LIMIT - guessCounter;
+
+    if (guess === correctNumber) {
+        document.getElementById("result").innerText =
+        "Wow, you got it in " + guessCounter + " guesses!";
+    }
+
+    else if (remaining === 0) {
+        document.getElementById("result").innerText =
+        "Game over! The number was " + correctNumber;
+    }
+
+    else if (guess < correctNumber) {
+        document.getElementById("result").innerText =
+        "Too low! Guesses remaining: " + remaining;
+    }
+
+    else {
+        document.getElementById("result").innerText =
+        "Too high! Guesses remaining: " + remaining;
+    }
+
+}
+
+</script>
 
 </body>
 </html>
