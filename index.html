@@ -1,10 +1,35 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 <title>Number Guessing Game</title>
+
+<style>
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 80px;
+}
+
+.game {
+    width: 350px;
+    margin: auto;
+}
+
+input, button {
+    padding: 8px;
+    font-size: 16px;
+    margin: 5px;
+}
+
+</style>
+
 </head>
 
 <body>
+
+<div class="game">
 
 <h1>Number Guessing Game</h1>
 <p>Guess a number between 0 and 100. You have 5 guesses.</p>
@@ -12,7 +37,13 @@
 <input id="guess" type="number">
 <button onclick="checkGuess()">Submit Guess</button>
 
+<br>
+
+<button onclick="restartGame()">Restart Game</button>
+
 <p id="result"></p>
+
+</div>
 
 <script>
 
@@ -20,12 +51,21 @@ let LOWER_BOUND = 0;
 let UPPER_BOUND = 100;
 let GUESS_LIMIT = 5;
 
-let correctNumber = Math.floor(Math.random() * (UPPER_BOUND + 1));
-let guessCounter = 0;
+let correctNumber;
+let guessCounter;
+
+startGame();
+
+function startGame() {
+    correctNumber = Math.floor(Math.random() * (UPPER_BOUND + 1));
+    guessCounter = 0;
+    document.getElementById("result").innerText = "";
+}
 
 function checkGuess() {
 
     let guess = Number(document.getElementById("guess").value);
+
     guessCounter++;
 
     let remaining = GUESS_LIMIT - guessCounter;
@@ -37,19 +77,23 @@ function checkGuess() {
 
     else if (remaining === 0) {
         document.getElementById("result").innerText =
-        "Game over! The number was " + correctNumber;
+        "Sorry, you're out of guesses. The number was " + correctNumber;
     }
 
     else if (guess < correctNumber) {
         document.getElementById("result").innerText =
-        "Too low! Guesses remaining: " + remaining;
+        "Your guess is too low! Guesses remaining: " + remaining;
     }
 
     else {
         document.getElementById("result").innerText =
-        "Too high! Guesses remaining: " + remaining;
+        "Your guess is too high! Guesses remaining: " + remaining;
     }
 
+}
+
+function restartGame() {
+    startGame();
 }
 
 </script>
